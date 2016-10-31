@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!--
+    ** Object 煙火秀 **
+-----------------------------------------------------
+https://catmaoblog.wordpress.com/2016/10/31/firework/
+
+    By. CatMao
+-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>1032002</title>
+    <style>
+        body{
+            background-image: url("http://i.imgur.com/ZpeRCHA.png");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
+    <script>
+        
+        var FirstDots = [];
+        var Fireworks = [];
+        var canvas;
+        var ctx;
+        var Xspeed = 8;
+        var Yspeed = 8;
+        
+        window.onload=function(){
+            canvas = document.getElementById("canvas");
+            ctx = canvas.getContext("2d");
+            
+            // 煙火光暈效果
+            ctx.shadowColor = "#FFFFFF";
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+            ctx.shadowBlur = 10;
+            
+            canvas.addEventListener("click", ClickCanvas);
+            
+            setInterval(function(){
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for(var i = 0; i < Fireworks.length; i++){
+                    Fireworks[i].Draw();
+                    Fireworks[i].Move();
+                }
+                for(var i = 0; i < FirstDots.length; i++){
+                    FirstDots[i].DrawBall();
+                    FirstDots[i].MoveBall();
+                }
+            }, 50);
+        }
+        
+        function ClickCanvas(event){
+            FirstDots.push(new Ball(event.clientX, event.clientY, 1, 0, -12,
+                                    Math.floor(Math.random() * 256),
+                                    Math.floor(Math.random() * 256),
+                                    Math.floor(Math.random() * 256)));
+            setTimeout(function(){
+                FirstDots.shift(); // 將陣列第一個刪除，其餘往前挪
+                Fireworks.push(new Firework(event.x, event.y));
+                Fireworks[Fireworks.length - 1].Create();
+                setTimeout("Fireworks.shift()", 3000);
+            }, 1500);
+        }
+        
+        function Firework(x, y){
+            this.x = x;
+            this.y = y - 140;
+            this.count;
+            this.Balls = [];
+            
+            this.Create = function(){ // 產生煙火所有的小球，存入小球陣列
+                this.count = Math.floor(Math.random() * 20 + 30);
+                for(var i = 0; i < this.count; i++){
+                    this.Balls.push(new Ball(this.x, this.y, 1,
+                                        Math.random() * Xspeed - Xspeed / 2,
+                                        - Math.random() * Yspeed,
+                                        Math.floor(Math.random() * 256),
+                                        Math.floor(Math.random() * 256),
+                                        Math.floor(Math.random() * 256)));
+                }
+            }
+            
+            this.Draw = function(){
+                for(var i = 0; i < this.count; i++){
+                    this.Balls[i].DrawBall();
+                }
+            }
+            
+            this.Move = function(){
+                for(var i = 0; i < this.count; i++){
+                    this.Balls[i].MoveBall();
+                }
+            }
+        }
+        
+        function Ball(x, y, r, dx, dy, red, green, blue){
+            this.x = x;
+            this.y = y;
+            this.r = r;
+            this.dx = dx;
+            this.dy = dy;
+            this.red = red;
+            this.green = green;
+            this.blue = blue;
+            
+            this.DrawBall = function(){
+                ctx.fillStyle = "rgb(" + this.red + "," + this.green + "," + this.blue + ")";
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.closePath();
+
+                ctx.fill();
+            }
+            
+            this.MoveBall = function(){ // 球的y加速度隨時間增加，並且球越來越大，製造接近螢幕的效果
+                this.x  += this.dx;
+                this.y  += this.dy;
+                this.dy += 0.5;
+                this.r  += 0.02;
+                if(canvas.width - this.r <= this.x){
+                    this.dx = -this.dx;
+                    this.x = canvas.width - this.r;
+                }
+                if(this.x <= this.r){
+                    this.dx = -this.dx;
+                    this.x = this.r;
+                }
+            }
+            
+            
+        }
+    </script>
+</head>
+<body>
+    
+    <canvas id="canvas" width="1500px" height="730px"></canvas>
+    
+</body>
+</html>
