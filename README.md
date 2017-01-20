@@ -1,5 +1,6 @@
 # Firework
 <h1><img class="alignnone  wp-image-99" src="https://catmaoblog.files.wordpress.com/2016/10/6lqz4de.png" alt="Icon made by Freepik from www.flaticon.com" width="40" height="40" /> <a href="https://catmaoblog.wordpress.com/2016/10/31/firework/" target="_blank">點我前往</a></h1>
+<h1><img class="alignnone  wp-image-99" src="https://catmaoblog.files.wordpress.com/2016/10/6lqz4de.png" alt="Icon made by Freepik from www.flaticon.com" width="40" height="40" /> <a href="https://catmaoblog.wordpress.com/2016/10/31/firework/" target="_blank">WordPress</a></h1>
 <h1><img class="alignnone  wp-image-41" src="https://catmaoblog.files.wordpress.com/2016/10/3h9rzur.png" alt="Icon made by Popcorns Arts from www.flaticon.com" width="40" height="40" /> 前言</h1>
 透過這次製作煙火，我學會了如何使用 Javascript 的 Object ，也活用了陣列與 Timer ，這裡的煙火物理現象並不符合實際的物理現象，因為我物理不太好，不過乍看之下還是有幾分像，準確的物理現象並不在這次的探討範圍內。
 <h1><img class="alignnone  wp-image-43" src="https://catmaoblog.files.wordpress.com/2016/10/ril6i6c.png" alt="Icon made by flaticon from www.flaticon.com" width="40" height="40" /> 程式碼</h1>
